@@ -1,5 +1,4 @@
-use std::{fs::File, io::prelude::*};
-
+use std::{fs::File, io::Read};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -25,7 +24,7 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
             }
 
             let s_chars: Vec<char> = s.chars().collect();
-            for i in 0..s_len {
+            for i in 0..letters_count {
                 let letters_char = letters.get(i).unwrap();
                 if letters_char == &' ' {
                     continue;
