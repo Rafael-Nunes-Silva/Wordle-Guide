@@ -5,11 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="index.js"></script>
+    <link href="https://unpkg.com/@csstools/normalize.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
     <title>Wordle Guide</title>
 </head>
 
 <body>
-    
+    <header>
+        <h1 id="title">Wordle Guide</h1>
+    </header>
+    <div id="main">
+        <div id="main-left">
+            <div id="left-top">
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(2)">2</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(3)">3</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(4)">4</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(5)">5</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(6)">6</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(7)">7</button>
+                <button class="word-size-button" maxlength="1" onclick="setWordSize(8)">8</button>
+            </div>
+            <div id="left-bottom">
+                <div id="letters">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                    <input class="letter-input" type="text">
+                </div>
+            </div>
+        </div>
+        <div id="main-right">
+            <div id="suggestions">
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+                <span class="suggestion">aahsaahs</span>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
