@@ -8,12 +8,18 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
-    let mut words_file = File::open("words_dictionary.txt").unwrap();
+    let mut words_file =
+        File::open("words_dictionary.txt").expect("Expected to have opened the words file");
+
+    alert(letters);
+    alert(&format!("letters_count: {}", letters_count));
 
     let mut file_content = String::new();
-    words_file.read_to_string(&mut file_content).unwrap();
+    words_file
+        .read_to_string(&mut file_content)
+        .expect("Expected to have read the file");
 
-    let letters: Vec<char> = letters.chars().collect();
+    let letters_chars: Vec<char> = letters.chars().collect();
 
     let suggestions: Vec<String> = file_content
         .split("\n")
@@ -23,14 +29,23 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
                 return false;
             }
 
+            alert(&format!("s_len: {}", s_len));
+
             let s_chars: Vec<char> = s.chars().collect();
             for i in 0..letters_count {
-                let letters_char = letters.get(i).unwrap();
+                let letters_char = letters_chars.get(i).expect(&format!(
+                    "Expected to have got the {}th char from {}",
+                    i, letters
+                ));
+                alert(&format!("letters_char: {}", letters_char));
                 if letters_char == &' ' {
                     continue;
                 }
 
-                let s_char = s_chars.get(i).unwrap();
+                let s_char = s_chars
+                    .get(i)
+                    .expect(&format!("Expected to have got the {}th char from {}", i, s));
+                alert(&format!("s_char: {}", s_char));
                 if letters_char != s_char {
                     return false;
                 }
