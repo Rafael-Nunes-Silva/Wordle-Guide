@@ -1,0 +1,13 @@
+[package]
+name = "wordle-guide"
+version = "0.1.0"
+authors = ["Rafael-Nunes-Silva rafaelnunesilva20@gmail.com"]
+description = "A helper to solve Wordle-like puzzles"
+license = "MIT"
+repository = "https://github.com/Rafael-Nunes-Silva/Wordle-Guide"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wasm-bindgen = "0.2"
