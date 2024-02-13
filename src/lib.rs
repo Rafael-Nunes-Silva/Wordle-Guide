@@ -1,3 +1,5 @@
+use std::cmp::min;
+
 // use std::{fs::File, io::Read};
 use wasm_bindgen::prelude::*;
 
@@ -34,7 +36,7 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
             alert(&format!("s_len: {}", s_len));
 
             let s_chars: Vec<char> = s.chars().collect();
-            for i in 0..letters_count {
+            for i in 0..min(letters_count, s_len) {
                 let letters_char = letters_chars.get(i).expect(&format!(
                     "Expected to have got the {}th char from {}",
                     i, letters
