@@ -10,9 +10,6 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
-    alert(letters);
-    alert(&format!("letters_count: {}", letters_count));
-
     // let mut words_file =
     //     File::open("words_dictionary.txt").expect("Expected to have opened the words file");
 
@@ -28,20 +25,17 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
     let suggestions: Vec<String> = file_content
         .split("\n")
         .filter(|s| {
-            let s_len = s.chars().count();
-            if s_len < letters_count && s_len > letters_count {
+            let s_count = s.chars().count();
+            if s_count < letters_count || s_count > letters_count {
                 return false;
             }
 
-            alert(&format!("s_len: {}", s_len));
-
             let s_chars: Vec<char> = s.chars().collect();
-            for i in 0..min(letters_count, s_len) {
+            for i in 0..min(letters_count, s_count) {
                 let letters_char = letters_chars.get(i).expect(&format!(
                     "Expected to have got the {}th char from {}",
                     i, letters
                 ));
-                alert(&format!("letters_char: {}", letters_char));
                 if letters_char == &' ' {
                     continue;
                 }
@@ -49,7 +43,6 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
                 let s_char = s_chars
                     .get(i)
                     .expect(&format!("Expected to have got the {}th char from {}", i, s));
-                alert(&format!("s_char: {}", s_char));
                 if letters_char != s_char {
                     return false;
                 }
@@ -57,12 +50,8 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
 
             return true;
         })
-        .map(|s| {
-            alert(s);
-            String::from(s)
-        })
+        .map(|s| String::from(s))
         .collect();
 
-    alert("end");
     suggestions
 }
