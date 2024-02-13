@@ -38,7 +38,7 @@ function setWordSize(size) {
 function getSuggestions() {
     let word = "";
     Array(...inputs).slice(0, wordSize).forEach(function (input, index) {
-        word += !input.value ? input.value : ' ';
+        word += input.value != '' ? input.value : ' ';
     });
     updateSuggestions(get_suggestions(word, wordSize));
 }
