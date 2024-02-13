@@ -1,11 +1,28 @@
-import init, { greet } from "./pkg/hello_wasm.js";
+import init, { greet } from "./pkg/wordle_guide.js";
 
 
 
 
-// document.body.addEventListener("load", function (ev) {
-//     document.getElementsByClassName("word-size-button")
-// });
+// window.onload = function (ev) {
+//     const buttons = document.getElementsByClassName("word-size-button");
+//     console.log(buttons);
+//     Array(...buttons).forEach(function (button, index) {
+//         button.addEventListener("click", function () {
+//             console.log(index + 1);
+//             setWordSize(index + 1);
+//         })
+//     });
+// }
+document.addEventListener("DOMContentLoaded", function (ev) {
+    const buttons = document.getElementsByClassName("word-size-button");
+    console.log(buttons);
+    Array(...buttons).forEach(function (button, index) {
+        button.addEventListener("click", function () {
+            console.log(index + 1);
+            setWordSize(index + 1);
+        })
+    });
+});
 
 
 
@@ -16,11 +33,12 @@ init().then(() => {
 });
 
 
+
 function setWordSize(size) {
     const letterInputs = document.getElementsByClassName("letter-input");
-    letterInputs.array.forEach(function (input, index) {
-        if (index <= size)
+    Array(...letterInputs).forEach(function (input, index) {
+        if (index < size)
             input.style.display = "block";
-        else input.style.display = "hidden";
+        else input.style.display = "none";
     });
 }
