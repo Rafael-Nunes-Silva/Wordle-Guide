@@ -1,4 +1,4 @@
-use std::{fs::File, io::Read};
+// use std::{fs::File, io::Read};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -8,16 +8,18 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
-    let mut words_file =
-        File::open("words_dictionary.txt").expect("Expected to have opened the words file");
-
     alert(letters);
     alert(&format!("letters_count: {}", letters_count));
 
-    let mut file_content = String::new();
-    words_file
-        .read_to_string(&mut file_content)
-        .expect("Expected to have read the file");
+    // let mut words_file =
+    //     File::open("words_dictionary.txt").expect("Expected to have opened the words file");
+
+    // let mut file_content = String::new();
+    let file_content = String::from(
+        "a\naa\naaa\naah\naahed\naahing\naahs\naal\naalii\naaliis\naals\naam\naani\naardvark\naardvarks\naardwolf\naardwolves\n");
+    // words_file
+    //     .read_to_string(&mut file_content)
+    //     .expect("Expected to have read the file");
 
     let letters_chars: Vec<char> = letters.chars().collect();
 
