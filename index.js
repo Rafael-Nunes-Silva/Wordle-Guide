@@ -15,11 +15,9 @@ import init, { greet } from "./pkg/wordle_guide.js";
 // }
 document.addEventListener("DOMContentLoaded", function (ev) {
     const buttons = document.getElementsByClassName("word-size-button");
-    console.log(buttons);
     Array(...buttons).forEach(function (button, index) {
         button.addEventListener("click", function () {
-            console.log(index + 1);
-            setWordSize(index + 1);
+            setWordSize(index + 2);
         })
     });
 });
