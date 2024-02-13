@@ -28,7 +28,7 @@ function setWordSize(size) {
     wordSize = size;
     const letterInputs = document.getElementsByClassName("letter-input");
     Array(...letterInputs).forEach(function (input, index) {
-        if (index <= size)
+        if (index < size)
             input.style.display = "block";
         else input.style.display = "none";
     });
