@@ -55,8 +55,12 @@ pub fn get_suggestions(letters: &str, letters_count: usize) -> Vec<String> {
 
             return true;
         })
-        .map(|s| String::from(s))
+        .map(|s| {
+            alert(s);
+            String::from(s)
+        })
         .collect();
 
+    alert("end");
     suggestions
 }
