@@ -2,6 +2,7 @@ import init, { get_suggestions } from "./pkg/wordle_guide.js";
 
 
 
+var wordSize = 8;
 const inputs = document.getElementsByClassName("letter-input");
 const suggestionElems = document.getElementsByClassName("suggestion");
 
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function (ev) {
 });
 
 function setWordSize(size) {
+    wordSize = size;
     const letterInputs = document.getElementsByClassName("letter-input");
     Array(...letterInputs).forEach(function (input, index) {
         if (index < size)
@@ -35,10 +37,10 @@ function setWordSize(size) {
 
 function getSuggestions() {
     let word = "";
-    Array(...inputs).forEach(function (input, index) {
+    Array(...inputs).slice(0, wordSize).forEach(function (input, index) {
         word += !input.value ? input.value : ' ';
     });
-    updateSuggestions(get_suggestions(word, word.length));
+    updateSuggestions(get_suggestions(word, wordSize));
 }
 
 function updateSuggestions(suggestions) {
