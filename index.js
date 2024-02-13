@@ -1,18 +1,13 @@
-import init, { greet } from "./pkg/wordle_guide.js";
+import init, { get_suggestions } from "./pkg/wordle_guide.js";
 
 
 
+var wordSize = 8;
+const inputs = document.getElementsByClassName("letter-input");
 
-// window.onload = function (ev) {
-//     const buttons = document.getElementsByClassName("word-size-button");
-//     console.log(buttons);
-//     Array(...buttons).forEach(function (button, index) {
-//         button.addEventListener("click", function () {
-//             console.log(index + 1);
-//             setWordSize(index + 1);
-//         })
-//     });
-// }
+
+init().then(function () { console.log("WASM loaded!") });
+
 document.addEventListener("DOMContentLoaded", function (ev) {
     const buttons = document.getElementsByClassName("word-size-button");
     Array(...buttons).forEach(function (button, index) {
@@ -21,22 +16,28 @@ document.addEventListener("DOMContentLoaded", function (ev) {
         })
     });
 });
-
-
-
-
-
-init().then(() => {
-    greet("WebAssembly");
+document.addEventListener("DOMContentLoaded", function (ev) {
+    Array(...inputs).forEach(function (input, index) {
+        input.addEventListener("change", function () {
+            getSuggestions();
+        })
+    });
 });
 
-
-
 function setWordSize(size) {
+    wordSize = size;
     const letterInputs = document.getElementsByClassName("letter-input");
     Array(...letterInputs).forEach(function (input, index) {
-        if (index < size)
+        if (index <= size)
             input.style.display = "block";
         else input.style.display = "none";
     });
+}
+
+function getSuggestions() {
+    let word = "";
+    Array(...inputs).forEach(function (input, index) {
+        word += input.value != ' ' ? input.value : ' ';
+    });
+    console.log(get_suggestions(word, wordSize));
 }
