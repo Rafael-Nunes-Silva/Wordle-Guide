@@ -7,8 +7,8 @@ setupWordsLists().then(function () { console.log("Words fetched!") });
 
 
 const KNOWN_INPUTS = Array(...document.getElementsByClassName("known"));
-const FOUND_INPUTS = Array(...document.getElementsByClassName("found"));
-const EXCLUDED_INPUTS = Array(...document.getElementsByClassName("excluded"));
+var foundInputs = Array(...document.getElementsByClassName("found"));
+var excludedInputs = Array(...document.getElementsByClassName("excluded"));
 const SUGGESTION_ELEMS = Array(...document.getElementsByClassName("suggestion"));
 const MAX_SUGGESTIONS = 20;
 var wordSize = 8;
@@ -50,6 +50,11 @@ function setupButtons() {
     });
 }
 
+function updateInputs() {
+    foundInputs = Array(...document.getElementsByClassName("found"));
+    excludedInputs = Array(...document.getElementsByClassName("excluded"));
+}
+
 function inputResize(inputs) {
     if (inputs[inputs.length - 1].value != '') {
         const NEW_NODE = document.createElement("input");
@@ -64,6 +69,8 @@ function inputResize(inputs) {
         inputs[inputs.length - 1].parentNode.removeChild(inputs[inputs.length - 1]);
         inputs.pop();
     }
+
+    updateInputs();
 }
 
 function setupInputs() {
@@ -81,11 +88,11 @@ function setupInputs() {
     };
 
     addSuggestionsEvent(KNOWN_INPUTS);
-    addSuggestionsEvent(FOUND_INPUTS);
-    addSuggestionsEvent(EXCLUDED_INPUTS);
+    addSuggestionsEvent(foundInputs);
+    addSuggestionsEvent(excludedInputs);
 
-    addResizeEvent(FOUND_INPUTS);
-    addResizeEvent(EXCLUDED_INPUTS);
+    addResizeEvent(foundInputs);
+    addResizeEvent(excludedInputs);
 }
 
 function setupSuggestions() {
@@ -133,8 +140,8 @@ function setWordSize(size) {
     }
 
     showHideInputs(KNOWN_INPUTS);
-    showHideInputs(FOUND_INPUTS);
-    showHideInputs(EXCLUDED_INPUTS);
+    showHideInputs(foundInputs);
+    showHideInputs(excludedInputs);
 }
 
 function inputsToString(inputs) {
@@ -147,8 +154,8 @@ function inputsToString(inputs) {
 
 function getSuggestions() {
     const KNOWN = inputsToString(KNOWN_INPUTS);
-    const FOUND = inputsToString(FOUND_INPUTS);
-    const EXCLUDED = inputsToString(EXCLUDED_INPUTS);
+    const FOUND = inputsToString(foundInputs);
+    const EXCLUDED = inputsToString(excludedInputs);
 
     updateSuggestions(get_suggestions(KNOWN, FOUND, EXCLUDED, words));
 }
