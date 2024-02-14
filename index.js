@@ -17,6 +17,34 @@ fetch("words_dictionary.txt")
     });
 
 
+function createNodes() {
+    const SUGGESTION_DIV = document.getElementById("suggestions");
+    for (let i = 0; i < MAX_SUGGESTIONS; i++) {
+        const SUGGESTION_NODE = document.createElement("span");
+        SUGGESTION_NODE.className = "suggestion";
+        SUGGESTION_DIV.appendChild(SUGGESTION_NODE);
+    }
+
+    const FOUND_DIV = document.getElementById("found-letters");
+    for (let i = 0; i < 26; i++) {
+        const FOUND_NODE = document.createElement("input");
+        FOUND_NODE.classList.add("found", "letter-input");
+        FOUND_NODE.type = "text";
+        FOUND_NODE.maxLength = 1;
+        FOUND_DIV.appendChild(FOUND_NODE);
+    }
+
+    const EXCLUDED_DIV = document.getElementById("excluded-letters");
+    for (let i = 0; i < 26; i++) {
+        const EXCLUDED_NODE = document.createElement("input");
+        EXCLUDED_NODE.classList.add("excluded", "letter-input");
+        EXCLUDED_NODE.type = "text";
+        EXCLUDED_NODE.maxLength = 1;
+        EXCLUDED_DIV.appendChild(EXCLUDED_NODE);
+    }
+}
+createNodes();
+
 document.addEventListener("DOMContentLoaded", setupButtons);
 document.addEventListener("DOMContentLoaded", setupKnownInputs);
 document.addEventListener("DOMContentLoaded", setupFoundInputs);
@@ -37,42 +65,6 @@ var words_7 = [];
 var words_8 = [];
 var words = words_8;
 var wordSize = 8;
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const SUGGESTION_DIV = document.getElementById("suggestions");
-    for (let i = 0; i < MAX_SUGGESTIONS; i++) {
-        const SUGGESTION_NODE = document.createElement("span");
-        SUGGESTION_NODE.className = "suggestion";
-        SUGGESTION_DIV.appendChild(SUGGESTION_NODE);
-    }
-
-    const FOUND_DIV = document.getElementById("found-letters");
-    for (let i = 0; i < 26; i++) {
-        const FOUND_NODE = document.createElement("input");
-        FOUND_NODE.classList.add("found", "letter-input");
-        FOUND_NODE.type = "text";
-        FOUND_NODE.maxLength = 1;
-        FOUND_NODE.addEventListener("change", function () {
-
-        });
-        FOUND_DIV.appendChild(FOUND_NODE);
-    }
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const ALL_INPUTS = KNOWN_INPUTS.concat(FOUND_INPUTS).concat(EXCLUDED_INPUTS);
-    ALL_INPUTS.forEach(function (input) {
-        input.addEventListener("change", getSuggestions);
-    });
-
-    FOUND_INPUTS.forEach(function (input) {
-        input.addEventListener("change", updateInputsEvents);
-    });
-    EXCLUDED_INPUTS.forEach(function (input) {
-        input.addEventListener("change", updateInputsEvents);
-    });
-});
 
 
 function setupButtons() {
@@ -163,7 +155,7 @@ function getSuggestions() {
     updateSuggestions(get_suggestions(KNOWN, FOUND, EXCLUDED, words));
 }
 function updateSuggestions(suggestions) {
-    getSuggestionElems().forEach(function (elem, index) {
+    SUGGESTION_ELEMS.forEach(function (elem, index) {
         if (index < suggestions.length) {
             elem.style.display = "block";
             elem.innerText = suggestions[index];
