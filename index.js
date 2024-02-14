@@ -32,7 +32,7 @@ function createNodes() {
         FOUND_NODE.classList.add("found", "letter-input");
         FOUND_NODE.type = "text";
         FOUND_NODE.maxLength = 1;
-        FOUND_NODE.style.display = "none";
+        FOUND_NODE.style.display = i == 0 ? "inline-block" : "none";
         FOUND_DIV.appendChild(FOUND_NODE);
     }
 
@@ -42,7 +42,7 @@ function createNodes() {
         EXCLUDED_NODE.classList.add("excluded", "letter-input");
         EXCLUDED_NODE.type = "text";
         EXCLUDED_NODE.maxLength = 1;
-        EXCLUDED_NODE.style.display = "none";
+        EXCLUDED_NODE.style.display = i == 0 ? "inline-block" : "none";
         EXCLUDED_DIV.appendChild(EXCLUDED_NODE);
     }
 }
@@ -86,12 +86,12 @@ function setupKnownInputs() {
 function setupFoundInputs() {
     FOUND_INPUTS.forEach(function (input) {
         input.addEventListener("change", getSuggestions);
-        input.addEventListener("change", updateInputs);
+        input.addEventListener("change", function () { updateInputs(FOUND_INPUTS); });
     })
 }
 function setupExcludedInputs() {
     EXCLUDED_INPUTS.forEach(function (input) {
-        input.addEventListener("change", function () { getSuggestions(FOUND_INPUTS); });
+        input.addEventListener("change", getSuggestions);
         input.addEventListener("change", function () { updateInputs(EXCLUDED_INPUTS); });
     })
 }
@@ -102,7 +102,7 @@ function updateInputs(inputs) {
             inputs[i].style.display = "none";
         }
         else if (inputs[i].value == '' && inputs[i - 1].value != '') {
-            inputs[i].style.display = "block";
+            inputs[i].style.display = "inline-block";
         }
     }
 }
@@ -136,7 +136,7 @@ function setWordSize(size) {
 
     KNOWN_INPUTS.forEach(function (input, index) {
         if (index < wordSize)
-            input.style.display = "block";
+            input.style.display = "inline-block";
         else input.style.display = "none";
     });
 }
@@ -150,7 +150,7 @@ function getSuggestions() {
 function updateSuggestions(suggestions) {
     SUGGESTION_ELEMS.forEach(function (elem, index) {
         if (index < suggestions.length) {
-            elem.style.display = "block";
+            elem.style.display = "inline-block";
             elem.innerText = suggestions[index];
         }
         else elem.style.display = "none";
