@@ -61,9 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 document.addEventListener("DOMContentLoaded", function () {
-    const FOUND_INPUTS = getFoundInputs();
-    const EXCLUDED_INPUTS = getExcludedInputs();
-    const ALL_INPUTS = getKnownInputs().concat(FOUND_INPUTS).concat(EXCLUDED_INPUTS);
+    const ALL_INPUTS = KNOWN_INPUTS.concat(FOUND_INPUTS).concat(EXCLUDED_INPUTS);
     ALL_INPUTS.forEach(function (input) {
         input.addEventListener("change", getSuggestions);
     });
