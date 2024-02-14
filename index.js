@@ -53,7 +53,7 @@ function setupButtons() {
 function inputResize(inputs) {
     if (inputs[inputs.length - 1].value != '') {
         const NEW_NODE = document.createElement("input");
-        NEW_NODE.classList = ["found", "letter-input"];
+        NEW_NODE.classList.add("found", "letter-input");
         NEW_NODE.type = "text";
         NEW_NODE.maxLength = 1;
         inputs[inputs.length - 1].parentNode.appendChild(NEW_NODE);
