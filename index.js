@@ -32,6 +32,7 @@ function createNodes() {
         FOUND_NODE.classList.add("found", "letter-input");
         FOUND_NODE.type = "text";
         FOUND_NODE.maxLength = 1;
+        FOUND_NODE.style.display = "none";
         FOUND_DIV.appendChild(FOUND_NODE);
     }
 
@@ -41,6 +42,7 @@ function createNodes() {
         EXCLUDED_NODE.classList.add("excluded", "letter-input");
         EXCLUDED_NODE.type = "text";
         EXCLUDED_NODE.maxLength = 1;
+        EXCLUDED_NODE.style.display = "none";
         EXCLUDED_DIV.appendChild(EXCLUDED_NODE);
     }
 }
@@ -89,27 +91,18 @@ function setupFoundInputs() {
 }
 function setupExcludedInputs() {
     EXCLUDED_INPUTS.forEach(function (input) {
-        input.addEventListener("change", getSuggestions);
-        input.addEventListener("change", updateInputs);
+        input.addEventListener("change", function () { getSuggestions(FOUND_INPUTS); });
+        input.addEventListener("change", function () { updateInputs(EXCLUDED_INPUTS); });
     })
 }
 
-function updateInputs() {
-    for (let i = FOUND_INPUTS.length - 1; i > 0; i++) {
-        if (FOUND_INPUTS[i].value == '' && FOUND_INPUTS[i - 1].value == '') {
-            FOUND_INPUTS[i].style.display == "none";
+function updateInputs(inputs) {
+    for (let i = inputs.length - 2; i > 0; i--) {
+        if (inputs[i].value == '' && inputs[i - 1].value == '' && inputs[i - 2].value == '') {
+            inputs[i].style.display = "none";
         }
-        else if (FOUND_INPUTS[i].value == '' && FOUND_INPUTS[i - 1].value != '') {
-            FOUND_INPUTS[i].style.display == "block";
-        }
-    }
-
-    for (let i = EXCLUDED_INPUTS.length - 1; i > 0; i++) {
-        if (EXCLUDED_INPUTS[i].value == '' && EXCLUDED_INPUTS[i - 1].value == '') {
-            EXCLUDED_INPUTS[i].style.display == "none";
-        }
-        else if (EXCLUDED_INPUTS[i].value == '' && EXCLUDED_INPUTS[i - 1].value != '') {
-            EXCLUDED_INPUTS[i].style.display == "block";
+        else if (inputs[i].value == '' && inputs[i - 1].value != '') {
+            inputs[i].style.display = "block";
         }
     }
 }
