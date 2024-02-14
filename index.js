@@ -97,8 +97,8 @@ function setupExcludedInputs() {
 }
 
 function updateInputs(inputs) {
-    for (let i = inputs.length - 2; i > 0; i--) {
-        if (inputs[i].value == '' && inputs[i - 1].value == '' && inputs[i - 2].value == '') {
+    for (let i = inputs.length - 1; i > 0; i--) {
+        if (inputs[i].value == '' && inputs[i - 1].value == '') {
             inputs[i].style.display = "none";
         }
         else if (inputs[i].value == '' && inputs[i - 1].value != '') {
