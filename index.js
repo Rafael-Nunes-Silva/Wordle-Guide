@@ -17,7 +17,7 @@ fetch("words_dictionary.txt")
     });
 
 
-const MAX_SUGGESTIONS = 20;
+const MAX_SUGGESTIONS = 30;
 function createNodes() {
     const SUGGESTION_DIV = document.getElementById("suggestions");
     for (let i = 0; i < MAX_SUGGESTIONS; i++) {
