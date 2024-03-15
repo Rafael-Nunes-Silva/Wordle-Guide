@@ -142,8 +142,8 @@ function setWordSize(size) {
 }
 function getSuggestions() {
     const KNOWN = knownToString();
-    const FOUND = FOUND_INPUTS.map(function (input) { return input.value }).join("");
-    const EXCLUDED = EXCLUDED_INPUTS.map(function (input) { return input.value }).join("");
+    const FOUND = FOUND_INPUTS.map(function (input) { return input.value.toLowerCase() }).join("");
+    const EXCLUDED = EXCLUDED_INPUTS.map(function (input) { return input.value.toLowerCase() }).join("");
 
     updateSuggestions(get_suggestions(KNOWN, FOUND, EXCLUDED, words));
 }
