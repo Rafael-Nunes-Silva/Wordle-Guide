@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -12,7 +13,7 @@ pub fn get_suggestions(
     excluded: &str,
     words: Vec<String>,
 ) -> Vec<String> {
-    let suggestions = words
+    let mut suggestions: Vec<String> = words
         .iter()
         .filter(|word| {
             let known_chars: Vec<char> = known.chars().collect();
@@ -60,5 +61,29 @@ pub fn get_suggestions(
         .map(|word| String::from(word))
         .collect();
 
+    (*suggestions).sort_by(|a, b| {
+        let letters_in_a = letters_in_word(a);
+        let letters_in_b = letters_in_word(b);
+
+        if letters_in_a > letters_in_b {
+            return Ordering::Less;
+        }
+        if letters_in_a < letters_in_b {
+            return Ordering::Greater;
+        }
+        Ordering::Equal
+    });
+
     suggestions
+}
+
+fn letters_in_word(word: &str) -> usize {
+    let mut chars_in_word: Vec<char> = Vec::new();
+    for char in word.chars() {
+        if !chars_in_word.contains(&char) {
+            chars_in_word.push(char);
+        }
+    }
+
+    chars_in_word.len()
 }
